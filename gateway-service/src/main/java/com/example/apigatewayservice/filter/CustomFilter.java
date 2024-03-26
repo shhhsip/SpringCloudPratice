@@ -17,7 +17,7 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
 
     @Override
     public GatewayFilter apply(Config config) {
-        System.out.println("test");
+        System.out.println("test2");
         // Custom pre filter
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
