@@ -19,7 +19,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/")
 public class UserController {
     private Environment env;
     private Greeting greeting;
