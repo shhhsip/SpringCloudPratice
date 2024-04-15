@@ -54,7 +54,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     private boolean isJwtValid(String jwt) {
         Boolean result = true;
         String subject = null;
-
+        System.out.println("-----------------------------------"+env.getProperty("token.secret"));
         try {
             subject = Jwts.parser().setSigningKey(env.getProperty("token.secret"))
                     .parseClaimsJws(jwt).getBody()

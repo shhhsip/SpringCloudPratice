@@ -1,0 +1,28 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri : https://github.com/shhhsip/SpringCloudPratice.git
+          default-label: main
+          search-paths: cloud-config # root가 아닌 하위 디렉토리에 위치한 경우
+
+#파일 시스템에 저장하여 사용하는 방법
+#spring:
+#  application:
+#    name: config-service
+#  cloud:
+#    config:
+#      server:
+#        native:
+#        search-locations: file:///${user.home}\\Documents\\git-local-repo
+#        git:
+#          #uri: file:///${user.home}\\Documents\\git-local-repo
+#          default-label: main
+
+

@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: user-service
+  profiles:
+    active: dev
   h2:
     console:
       enabled: true
@@ -31,6 +33,8 @@ eureka:
 greeting:
   message: Welcome to the simple E-commerce.
 
-token:
-  expiration_time: 86400000
-  secret: secret_token
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
