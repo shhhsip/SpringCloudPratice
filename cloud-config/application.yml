@@ -1,6 +1,6 @@
 token:
   expiration_time: 86400000
-  secret: application_yml_secret_token
+  secret: application_yml_secret_token_updateTest
 
 gateway:
   ip: 127.0.0.1
