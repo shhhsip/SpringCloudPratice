@@ -17,10 +17,10 @@ spring:
       settings:
         web-allow-others: true
       path: /user-service/h2-console
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:test
-    username: sa
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:test
+#    username: sa
 
   jpa:
     hibernate:

@@ -1,0 +1,6 @@
+encrypt:
+  #key: shhhsipTestEncryptKey
+  key-store:
+    location: file:///C:\\Users\\1700\\Documents\\keystore\\apiEncryptionKey.jks
+    password: test1234
+    alias: apiEncryptionKey
