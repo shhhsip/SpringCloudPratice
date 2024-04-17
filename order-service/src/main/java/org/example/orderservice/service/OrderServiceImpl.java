@@ -10,12 +10,15 @@ import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
+
+    @Transactional
     @Override
     public OrderDto createOrder(OrderDto orderDetails) {
         orderDetails.setOrderId(UUID.randomUUID().toString());

@@ -95,11 +95,11 @@
             <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
 
-<!--        &lt;!&ndash; Feign Client &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
-<!--        </dependency>-->
+        <!-- Feign Client-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
 
 <!--        &lt;!&ndash; resilience4j &ndash;&gt;-->
 <!--        <dependency>-->
