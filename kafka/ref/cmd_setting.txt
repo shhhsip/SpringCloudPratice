@@ -1,0 +1,71 @@
+Zookeeper 및 kafka 서버 구동
+./bin/windows/zookeeper-server-start.bat ./config/zookeeper.properties
+./bin/windows/kafka-server-start.bat ./config/server.properties
+
+ * 오류 
+내용 - The input line is too long.
+	The syntax of the command is incorrect.
+해결방안 - 윈도우 cmd는 명령줄에 8192글자까지 제한된다고 함..경로가 길면 생길 수 있는 현상이다. -> kafka-run-class.bat를 수정 
+기존소스 rem Classpath addition for release
+ 	for %%i in ("%BASE_DIR%\libs\*") do (
+ 		call :concat "%%i"
+	 )
+변경소스 rem Classpath addition for release
+	call :concat "%BASE_DIR%\libs\*;
+
+
+Topic 생성
+/bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092 \ --partitions 1
+/bin/windows/kafka-topics.bat --create --topic quickstart-events --bootstrap-server localhost:9092 \ --partitions 1
+
+Topic 목록 확인
+./bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+./bin/windows/kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+Topic 정보 확인
+/bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
+/bin/windows/kafka-topics.bat --describe --topic quickstart-events --bootstrap-server localhost:9092
+
+-------------------------------------------------------------------------------------------------------
+
+Kafka Connect 실행
+ .\bin\windows\connect-distributed.bat . \etc\kafka\connect-distributed.properties
+
+ * 실행 시 아래와 같은 오류 발생하면, binary 파일 대신 source 파일을 다운로드 받은 것인지 확인
+오류내용 - Classpath is empty. Please build the project first e.g. by running ‘gradlew jarAll’
+
+해결방안
+.\bin\windows\kafka-run-class.bat 파일에서 rem Classpath addition for core 부분을 찾아서, 그 위에 추가 코드 삽입
+ ( 기존 코드에서 아래 코드 검색 )
+ rem Classpath addition for core
+ for %%i in ("%BASE_DIR%\core\build\libs\kafka_%SCALA_BINARY_VERSION%".jar") do(
+	call :concat "%%i"
+ )
+
+( 검색 된 코드 위에 아래 코드 삽입 )
+rem Classpath addtion for LSB style path
+if exist %BASE_DIR%\share\java\kafka\* (
+    call :concat %BASE_DIR%\share\java\kafka\*
+)
+
+
+* 실행 시 log4j 관련 오류
+connect-distributed.bat의
+set KAFKA_LOG4J_OPTS=-Dlog4j.configuration=file:%BASE_DIR%/config/connect-log4j.properties
+코드를
+set KAFKA_LOG4J_OPTS=-Dlog4j.configuration=file:%BASE_DIR%/etc/kafka/connect-log4j.properties
+로 변경하여 해결
+-------------------------------------------------------------------------------------------------------
+추가 작업
+.\etc\kafka\connect-distributed.properties 파일 마지막에 아래 plugin 정보 추가
+# plugin.path=/usr/share/java
+plugin.path=\C:\\경로\\lib
+
+JdbcSourceConnector에서DB 사용하기 위해 사용하려는 db드라이버 복사
+ex ) mariadb 사용시
+ - mariadb-java-client-2.7.2.jar 파일을 ./share/java/kafka/로 복사
+
+
+------------------------------------------------------------------------------------------
+
+
